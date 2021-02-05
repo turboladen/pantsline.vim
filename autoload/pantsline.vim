@@ -1,91 +1,133 @@
-function! StatusDiagnostic() abort
-  let info = get(b:, 'coc_diagnostic_info', {})
+scriptencoding utf-8
 
-  if empty(info) | return '' | endif
-
-  let msgs = []
-
-  if get(info, 'error', 0)
-    call add(msgs, 'E' . info['error'])
-  endif
-
-  if get(info, 'warning', 0)
-    call add(msgs, 'W' . info['warning'])
-  endif
-
-  return '[' . join(msgs, ',') . '] '
+function! s:separator_lhs() abort
+  " return ''
+  return ''
 endfunction
 
-function! StatusCurrentFunction() abort
-  return get(g:,'coc_status','')
+function! s:separator_rhs() abort
+  " return ''
+  return ''
 endfunction
 
-function! s:formatted_git_branch()
-  let l:git_branch = fugitive#head()
+function! s:git_branch() abort
+  if exists('*FugitiveHead')
+    return '' . FugitiveHead()
+  endif
 
-  if l:git_branch != ""
-    let l:formatted_git_branch = get(l:, 'git_branch', '') . ' | '
+  return ''
+endfunction
+
+function! s:file_format() abort
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! s:file_type_icon() abort
+  if exists('*WebDevIconsGetFileTypeSymbol')
+    return WebDevIconsGetFileTypeSymbol()
+  endif
+
+  return ''
+endfunction
+
+function! s:file_type() abort
+  if winwidth(0) < 70
+    return s:file_type_icon()
+  endif
+
+  return !empty(&filetype) ? &filetype : 'no ft'
+endfunction
+
+function! s:file_encoding() abort
+  return winwidth(0) > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
+endfunction
+
+function! s:file_name() abort
+  let l:name = ''
+
+  if &readonly
+    let l:name .= ''
+  endif
+
+  let l:expanded_ft = expand('%:p:.')
+
+  if empty(l:expanded_ft)
+    return l:name . 'No Name'
   else
-    let l:formatted_git_branch = ''
+    let l:name .= s:file_type_icon() . ' ' . l:expanded_ft
   endif
 
-  return l:formatted_git_branch
+  if &modified
+    let l:name .= '✹'
+  endif
+
+  return l:name
 endfunction
 
-function! s:InactiveStatusLine()
-  let l:s = ''
-  let l:s .= ' %f%h%w%m%r '
-  let l:s .= '%='
-  let l:s .= ' %{s:formatted_git_branch()} %p%% '
+function! s:mode_type() abort
+  if mode() =~# '[nc]'
+    return 'n'
+  elseif mode() =~# '[it]'
+    return 'i'
+  elseif mode() =~# '[vVsS]'
+    return 'v'
+  elseif mode() ==# 'R'
+    return 'R'
+  endif
+
+  return ''
+endfunction
+
+function! s:mode_label() abort
+  return g:pantsline_mode_labels[s:mode_type()]
+endfunction
+
+function! s:inactive_status_line()
+  let l:s = ' '
+  let l:s .= <SID>file_name()
+  let l:s .= '%w'
+  let l:s .= ' %='
+  let l:s .= ' %{&filetype} %p%% '
 
   return l:s
 endfunction
 
-function! s:StatusLine()
-  let l:s = ''
+function! s:status_line()
+  let l:s = &paste ? ' %#Normal#PASTE ' : '%#Normal#'
 
-  " let l:s .= crystalline#mode()
-  let l:s .= '%{&paste ?"| PASTE ":""}%{&spell?"| SPELL ":""}'
-  " let l:s .= crystalline#right_mode_sep('')
-
-  let l:s .= ' %f%h%w%m%r %{StatusDiagnostic()}'
-
-  " let l:s .= crystalline#right_sep('', 'Fill') . ' %{StatusCurrentFunction()}'
-  let l:s .= ' %{StatusCurrentFunction()}'
-
-  let l:s .= '%='
-
-  " let l:s .= crystalline#left_sep('', 'Fill') . ' %{&ft} '
-  let l:s .= ' %{&ft} '
-  " let l:s .= crystalline#left_mode_sep('')
-
-
-  let l:s .= ' %{s:formatted_git_branch()} %l/%L:%c%V %p%% '
-
-  return l:s
+  return l:s . s:mode_label()
+    \ . ' %#PantslineKuroiPurpleSeparator#' . s:separator_lhs()
+    \ . ' %#PantslineKuroiPurple#' . s:file_name()
+    \ . ' %#PantslineKuroiPurpleSeparator#' . s:separator_rhs() . '%#Normal#'
+    \ . ' ' . coc#status()
+    \ . ' %='
+    \ . '%#PantslineKuroiBlueSeparator#' . s:separator_lhs()
+    \ . ' %#PantslineKuroiBlue#' . s:git_branch() . ' | ' . s:file_type()
+    \ . ' %#PantslineKuroiBlueSeparator#' . s:separator_rhs() . '%#Normal#'
+    \ . ' %l:%c%V %p%% '
 endfunction
 
-function! s:SetStatusline()
-    " call spaceline#colorscheme_init()
+function! s:set_status_line()
+  " call spaceline#colorscheme_init()
 
-    " if index(g:spaceline_shortline_filetype, &filetype) >= 0
-    "   let &l:statusline=s:short_statusline()
-    "   return
-    " endif
+  " if index(g:spaceline_shortline_filetype, &filetype) >= 0
+  "   let &l:statusline=s:short_statusline()
+  "   return
+  " endif
 
-    let &l:statusline = s:StatusLine()
+  let &l:statusline = <SID>status_line()
 endfunction
 
 function! pantsline#pantsline_toggle()
   if get(g:, 'pantsline_is_loaded', 0) == 1
-    call s:SetStatusline()
+    call <SID>set_status_line()
   else
     let &l:statusline=''
   endif
 endfunction
 
 function! pantsline#setInactiveStatusLine()
-    let &l:statusline = s:InactiveStatusLine()
+  let &l:statusline = <SID>inactive_status_line()
 
-    " call pantsline#colorscheme_init()
+  " call pantsline#colorscheme_init()
 endfunction
