@@ -46,7 +46,7 @@ function! s:StatusLine()
     " let l:s .= crystalline#left_mode_sep('')
   endif
 
-  if a:width > 80
+  " if a:width > 80
     let l:git_branch = fugitive#head()
 
     if l:git_branch != ""
@@ -56,9 +56,9 @@ function! s:StatusLine()
     endif
 
     let l:s .= ' '. get(l:, 'formatted_git_branch', '') . '%l/%L:%c%V %p%% '
-  else
-    let l:s .= ' '
-  endif
+  " else
+  "   let l:s .= ' '
+  " endif
 
   return l:s
 endfunction
