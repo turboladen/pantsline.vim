@@ -20,7 +20,7 @@ function! StatusCurrentFunction() abort
   return get(g:,'coc_status','')
 endfunction
 
-function! pantsline#StatusLine(current, width)
+function! s:StatusLine()
   let l:s = ''
 
   if a:current
@@ -61,6 +61,17 @@ function! pantsline#StatusLine(current, width)
   endif
 
   return l:s
+endfunction
+
+function! s:SetStatusline()
+    " call spaceline#colorscheme_init()
+
+    " if index(g:spaceline_shortline_filetype, &filetype) >= 0
+    "   let &l:statusline=s:short_statusline()
+    "   return
+    " endif
+
+    let &l:statusline = s:StatusLine()
 endfunction
 
 function! pantsline#pantsline_toggle()
