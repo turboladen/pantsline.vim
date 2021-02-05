@@ -20,7 +20,7 @@ function! StatusCurrentFunction() abort
   return get(g:,'coc_status','')
 endfunction
 
-function! StatusLine(current, width)
+function! pantsline#StatusLine(current, width)
   let l:s = ''
 
   if a:current
@@ -62,5 +62,5 @@ function! StatusLine(current, width)
 endfunction
 
 let g:crystalline_enable_sep = 1
-let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_statusline_fn = 'pantsline#StatusLine'
 let g:crystalline_theme = 'molokai'
