@@ -20,11 +20,23 @@ function! StatusCurrentFunction() abort
   return get(g:,'coc_status','')
 endfunction
 
+function! s:formatted_git_branch()
+  let l:git_branch = fugitive#head()
+
+  if l:git_branch != ""
+    let l:formatted_git_branch = get(l:, 'git_branch', '') . ' | '
+  else
+    let l:formatted_git_branch = ''
+  endif
+
+  return l:formatted_git_branch
+endfunction
+
 function! s:InactiveStatusLine()
   let l:s = ''
   let l:s .= ' %f%h%w%m%r '
   let l:s .= '%='
-  let l:s .= ' '. get(l:, 'formatted_git_branch', '') . '%l/%L:%c%V %p%% '
+  let l:s .= ' %{s:formatted_git_branch()} %p%% '
 
   return l:s
 endfunction
@@ -47,15 +59,8 @@ function! s:StatusLine()
   let l:s .= ' %{&ft} '
   " let l:s .= crystalline#left_mode_sep('')
 
-  let l:git_branch = fugitive#head()
 
-  if l:git_branch != ""
-    let l:formatted_git_branch = get(l:, 'git_branch', '') . ' | '
-  else
-    let l:formatted_git_branch = ''
-  endif
-
-  let l:s .= ' '. get(l:, 'formatted_git_branch', '') . '%l/%L:%c%V %p%% '
+  let l:s .= ' %{s:formatted_git_branch()} %l/%L:%c%V %p%% '
 
   return l:s
 endfunction
