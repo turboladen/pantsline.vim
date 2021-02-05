@@ -24,9 +24,9 @@ function! pantsline#StatusLine(current, width)
   let l:s = ''
 
   if a:current
-    let l:s .= crystalline#mode()
+    " let l:s .= crystalline#mode()
     let l:s .= '%{&paste ?"| PASTE ":""}%{&spell?"| SPELL ":""}'
-    let l:s .= crystalline#right_mode_sep('')
+    " let l:s .= crystalline#right_mode_sep('')
   else
     let l:s .= '%#CrystallineInactive#'
   endif
@@ -34,14 +34,16 @@ function! pantsline#StatusLine(current, width)
   let l:s .= ' %f%h%w%m%r %{StatusDiagnostic()}'
 
   if a:current
-    let l:s .= crystalline#right_sep('', 'Fill') . ' %{StatusCurrentFunction()}'
+    " let l:s .= crystalline#right_sep('', 'Fill') . ' %{StatusCurrentFunction()}'
+    let l:s .= ' %{StatusCurrentFunction()}'
   endif
 
   let l:s .= '%='
 
   if a:current
-    let l:s .= crystalline#left_sep('', 'Fill') . ' %{&ft} '
-    let l:s .= crystalline#left_mode_sep('')
+    " let l:s .= crystalline#left_sep('', 'Fill') . ' %{&ft} '
+    let l:s .= ' %{&ft} '
+    " let l:s .= crystalline#left_mode_sep('')
   endif
 
   if a:width > 80
@@ -61,6 +63,10 @@ function! pantsline#StatusLine(current, width)
   return l:s
 endfunction
 
-let g:crystalline_enable_sep = 1
-let g:crystalline_statusline_fn = 'pantsline#StatusLine'
-let g:crystalline_theme = 'molokai'
+function! pantsline#pantsline_toggle()
+  if get(g:, 'pantsline_is_loaded', 0) == 1
+    call s:SetStatusline()
+  else
+    let &l:statusline=''
+  endif
+endfunction

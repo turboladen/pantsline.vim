@@ -1,10 +1,10 @@
 scriptencoding utf-8
 
-if exists('g:meowline_is_loaded') || v:version < 700
+if exists('g:pantsline_is_loaded') || v:version < 700
   finish
 endif
 
-let g:meowline_is_loaded = 1
+let g:pantsline_is_loaded = 1
 
 " let g:seperate_style = get(g:, 'pantsline_seperate_style', 'slant')
 " let g:pantsline_colorscheme = get(g:, 'pantsline_colorscheme', 'pants')
@@ -28,15 +28,15 @@ let g:meowline_is_loaded = 1
 " let g:separator = {}
 " let g:sep = pantsline#seperator#pantslineStyle(g:seperate_style)
 
-" augroup pantsline
-"   autocmd!
+augroup pantsline
+  autocmd!
 "   autocmd BufNewFile,BufReadPost * call pantsline#vcs#gitbranch_detect(expand('<amatch>:p:h'))
 "   autocmd BufEnter * call pantsline#vcs#gitbranch_detect(expand('%:p:h'))
-"   autocmd FileType,BufWinEnter,BufReadPost,BufWritePost * call pantsline#pantslinetoggle()
-"   autocmd BufEnter,WinEnter,BufEnter,FileChangedShellPost  * call pantsline#pantslinetoggle()
+  autocmd FileType,BufWinEnter,BufReadPost,BufWritePost * call pantsline#pantsline_toggle()
+  autocmd BufEnter,WinEnter,BufEnter,FileChangedShellPost  * call pantsline#pantsline_toggle()
 "   autocmd Colorscheme * call pantsline#colorscheme_init()
-"   autocmd VimResized * call pantsline#pantslinetoggle()
+  autocmd VimResized * call pantsline#pantsline_toggle()
 "   autocmd WinLeave * call pantsline#setInActiveStatusLine()
-"   autocmd User CocStatusChange,CocGitStatusChange,ClapOnExit,GitGutter,Signify call pantsline#pantslinetoggle()
-"   autocmd User CocDiagnosticChange call pantsline#pantslinetoggle()
-" augroup END
+  autocmd User CocStatusChange,CocGitStatusChange,ClapOnExit,GitGutter,Signify call pantsline#pantsline_toggle()
+  autocmd User CocDiagnosticChange call pantsline#pantsline_toggle()
+augroup END
