@@ -36,7 +36,7 @@ augroup pantsline
   autocmd BufEnter,WinEnter,BufEnter,FileChangedShellPost  * call pantsline#pantsline_toggle()
 "   autocmd Colorscheme * call pantsline#colorscheme_init()
   autocmd VimResized * call pantsline#pantsline_toggle()
-"   autocmd WinLeave * call pantsline#setInActiveStatusLine()
+  autocmd WinLeave * call pantsline#setInactiveStatusLine()
   autocmd User CocStatusChange,CocGitStatusChange,ClapOnExit,GitGutter,Signify call pantsline#pantsline_toggle()
   autocmd User CocDiagnosticChange call pantsline#pantsline_toggle()
 augroup END
