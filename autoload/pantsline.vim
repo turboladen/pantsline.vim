@@ -23,28 +23,28 @@ endfunction
 function! s:StatusLine()
   let l:s = ''
 
-  if a:current
+  " if a:current
     " let l:s .= crystalline#mode()
     let l:s .= '%{&paste ?"| PASTE ":""}%{&spell?"| SPELL ":""}'
     " let l:s .= crystalline#right_mode_sep('')
-  else
-    let l:s .= '%#CrystallineInactive#'
-  endif
+  " else
+  "   let l:s .= '%#CrystallineInactive#'
+  " endif
 
   let l:s .= ' %f%h%w%m%r %{StatusDiagnostic()}'
 
-  if a:current
+  " if a:current
     " let l:s .= crystalline#right_sep('', 'Fill') . ' %{StatusCurrentFunction()}'
     let l:s .= ' %{StatusCurrentFunction()}'
-  endif
+  " endif
 
   let l:s .= '%='
 
-  if a:current
+  " if a:current
     " let l:s .= crystalline#left_sep('', 'Fill') . ' %{&ft} '
     let l:s .= ' %{&ft} '
     " let l:s .= crystalline#left_mode_sep('')
-  endif
+  " endif
 
   " if a:width > 80
     let l:git_branch = fugitive#head()
