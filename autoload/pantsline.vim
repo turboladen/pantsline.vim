@@ -54,7 +54,7 @@ function! s:file_name() abort
   if empty(l:expanded_name)
     return l:name . 'No Name'
   else
-    let l:name .= s:file_type_icon() . ' %-.{64}' . l:expanded_name
+    let l:name .= s:file_type_icon() . ' %-.64' . l:expanded_name
   endif
 
   if &modified
