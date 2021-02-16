@@ -49,12 +49,12 @@ function! s:file_name() abort
     let l:name .= ''
   endif
 
-  let l:expanded_ft = expand('%:p:.')
+  let l:expanded_name = expand('%t')
 
-  if empty(l:expanded_ft)
-    return l:name . 'No Name'
+  if empty(l:expanded_name)
+    return l:name . ' No Name'
   else
-    let l:name .= s:file_type_icon() . ' ' . l:expanded_ft
+    let l:name .= s:file_type_icon() . ' %-.{64}' . l:expanded_name
   endif
 
   if &modified
