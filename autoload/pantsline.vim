@@ -1,13 +1,13 @@
 scriptencoding utf-8
 
 function! s:separator_lhs() abort
-  " return ''
-  return ''
+  return ''
+  " return ''
 endfunction
 
 function! s:separator_rhs() abort
-  " return ''
-  return ''
+  return ''
+  " return ''
 endfunction
 
 function! s:git_branch() abort
