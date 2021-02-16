@@ -52,7 +52,7 @@ function! s:file_name() abort
   let l:expanded_name = expand('%t')
 
   if empty(l:expanded_name)
-    return l:name . ' No Name'
+    return l:name . 'No Name'
   else
     let l:name .= s:file_type_icon() . ' %-.{64}' . l:expanded_name
   endif
