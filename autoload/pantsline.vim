@@ -101,9 +101,9 @@ function! s:status_line()
     \ . ' %#PantslineKuroiPurpleSeparator#' . s:separator_rhs() . '%#Normal#'
     \ . ' ' . coc#status()
     \ . ' %='
-    \ . '%#PantslineKuroiBlueSeparator#' . s:separator_lhs()
-    \ . ' %#PantslineKuroiBlue#' . s:git_branch() . ' | ' . s:file_type()
-    \ . ' %#PantslineKuroiBlueSeparator#' . s:separator_rhs() . '%#Normal#'
+    \ . '%#PantslineKuroiDarkCyanSeparator#' . s:separator_lhs()
+    \ . ' %#PantslineKuroiDarkCyan#' . s:git_branch() . ' | ' . s:file_type()
+    \ . ' %#PantslineKuroiDarkCyanSeparator#' . s:separator_rhs() . '%#Normal#'
     \ . ' %l:%c%V %p%% '
 endfunction
 
