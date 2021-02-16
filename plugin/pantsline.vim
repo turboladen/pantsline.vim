@@ -10,10 +10,10 @@ let g:pantsline_is_loaded = 1
 " #c5c8c6 = mid/light grey
 " 234, #1b1918 = black
 
-" highlight PantslineKuroiPurple           ctermfg=250  ctermbg=53  guibg=#5f005f  guifg=#c5c8c6
-" highlight PantslineKuroiPurpleSeparator  ctermfg=234  ctermbg=53  guibg=#5f005f  guifg=#1b1918
-highlight PantslineKuroiPurple           ctermfg=53  ctermbg=250  guibg=#c5c8c6  guifg=#5f005f
-highlight PantslineKuroiPurpleSeparator  ctermfg=53  ctermbg=234  guibg=#1b1918  guifg=#5f005f
+highlight PantslineKuroiPurple           ctermfg=250  ctermbg=53  guibg=#5f005f  guifg=#c5c8c6
+highlight PantslineKuroiPurpleSeparator  ctermfg=234  ctermbg=53  guibg=#5f005f  guifg=#1b1918
+" highlight PantslineKuroiPurple           ctermfg=53  ctermbg=250  guibg=#c5c8c6  guifg=#5f005f
+" highlight PantslineKuroiPurpleSeparator  ctermfg=53  ctermbg=234  guibg=#1b1918  guifg=#5f005f
 
 " 17, #00005f = dark blue
 " highlight PantslineKuroiDarkBlue           ctermfg=250  ctermbg=53  guibg=#00005f  guifg=#c5c8c6
@@ -24,8 +24,10 @@ highlight PantslineKuroiPurpleSeparator  ctermfg=53  ctermbg=234  guibg=#1b1918 
 " highlight PantslineKuroiBlueSeparator  ctermfg=234  ctermbg=53  guibg=#5fafff  guifg=#1b1918
 
 " 17, #005f5f = dark cyan
-highlight PantslineKuroiDarkCyan           ctermfg=17  ctermbg=250  guibg=#c5c8c6  guifg=#005f5f
-highlight PantslineKuroiDarkCyanSeparator  ctermfg=17  ctermbg=234  guibg=#1b1918  guifg=#005f5f
+highlight PantslineKuroiDarkCyan           ctermfg=250  ctermbg=17  guibg=#005f5f  guifg=#c5c8c6
+highlight PantslineKuroiDarkCyanSeparator  ctermfg=234  ctermbg=17  guibg=#005f5f  guifg=#1b1918
+" highlight PantslineKuroiDarkCyan           ctermfg=17  ctermbg=250  guibg=#c5c8c6  guifg=#005f5f
+" highlight PantslineKuroiDarkCyanSeparator  ctermfg=17  ctermbg=234  guibg=#1b1918  guifg=#005f5f
 
 if !exists('g:pantsline_mode_labels')
   let g:pantsline_mode_labels = {
